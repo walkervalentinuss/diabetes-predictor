@@ -1,17 +1,19 @@
-
 # Diabetes Predictor using Flask and XGBoost
 
 ## Deskripsi Proyek
+
 Proyek ini adalah **sistem prediksi risiko diabetes** yang dibangun menggunakan **Flask** sebagai backend dan **XGBoost** sebagai model machine learning. Sistem ini memungkinkan pengguna untuk memasukkan beberapa parameter kesehatan dan mendapatkan prediksi apakah seseorang berisiko terkena diabetes atau tidak.
 
 ---
 
 ## Model yang Digunakan
+
 Model yang digunakan adalah **XGBoost Classifier**, yang merupakan salah satu algoritma machine learning berbasis **ensemble** dan terkenal dengan performa tinggi untuk prediksi.
 
 ---
 
 ## Fitur Aplikasi
+
 - **Form input web**: User dapat mengisi data seperti glukosa, tekanan darah, insulin, dan lainnya.
 - **Prediksi risiko diabetes**: Aplikasi memberikan hasil apakah pengguna berisiko terkena diabetes atau tidak.
 - **API berbasis JSON**: Mendukung **curl** dan alat pengujian seperti **Postman** untuk integrasi eksternal.
@@ -21,17 +23,20 @@ Model yang digunakan adalah **XGBoost Classifier**, yang merupakan salah satu al
 ## Cara Membuat Virtual Environment dan Menjalankan Aplikasi
 
 1. **Clone Repository**:
+
    ```bash
    git clone https://github.com/username/diabetes-predictor.git
    cd diabetes-predictor
    ```
 
 2. **Buat Virtual Environment**:
+
    ```bash
    python -m venv venv
    ```
 
 3. **Aktifkan Virtual Environment**:
+
    - **Windows**:
      ```bash
      venv\Scripts\activate
@@ -42,11 +47,13 @@ Model yang digunakan adalah **XGBoost Classifier**, yang merupakan salah satu al
      ```
 
 4. **Install Dependensi**:
+
    ```bash
    pip install -r requirements.txt
    ```
 
    **Contoh isi `requirements.txt`:**
+
    ```
    Flask==2.3.2
    numpy==1.21.4
@@ -56,6 +63,7 @@ Model yang digunakan adalah **XGBoost Classifier**, yang merupakan salah satu al
    ```
 
 5. **Jalankan Aplikasi Flask**:
+
    ```bash
    python app.py
    ```
@@ -67,6 +75,7 @@ Model yang digunakan adalah **XGBoost Classifier**, yang merupakan salah satu al
 ---
 
 ## Struktur Direktori
+
 ```
 diabetes-predictor/
 │
@@ -88,11 +97,13 @@ diabetes-predictor/
 Berikut adalah contoh cara menguji API menggunakan **curl**:
 
 #### Prediksi Tidak Diabetes
+
 ```bash
 curl -X POST http://127.0.0.1:5000/predict -H "Content-Type: application/json" -d "{"input": [2, 88, 70, 32, 85, 24.8, 0.5, 28]}"
 ```
 
 #### Prediksi Diabetes
+
 ```bash
 curl -X POST http://127.0.0.1:5000/predict -H "Content-Type: application/json" -d "{"input": [8, 190, 90, 35, 180, 38.5, 1.2, 60]}"
 ```
@@ -100,16 +111,19 @@ curl -X POST http://127.0.0.1:5000/predict -H "Content-Type: application/json" -
 ---
 
 ## Kegunaan
+
 - **Alat evaluasi awal risiko diabetes**: Membantu pengguna memahami apakah mereka memiliki risiko terkena diabetes berdasarkan parameter kesehatan.
 - **Implementasi praktis machine learning**: Memperlihatkan bagaimana **Flask** dapat digunakan untuk membangun API prediksi berbasis model machine learning.
 
 ---
 
 ## Catatan
+
 - **Aplikasi ini bukan pengganti diagnosis medis** dan hanya memberikan hasil berdasarkan data yang dimasukkan.
 - Konsultasikan dengan profesional kesehatan untuk diagnosis dan perawatan yang tepat.
 
 ---
 
 ## Lisensi
-Proyek ini berlisensi di bawah **MIT License**. Silakan lihat file `LICENSE` untuk informasi lebih lanjut.
+
+Proyek ini dibuat oleh **walkervalentinuss**.
