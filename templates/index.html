@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diabetes Risk Assessment</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f0f4ff;
+            font-family: 'Arial', sans-serif;
+        }
+        .container {
+            margin-top: 50px;
+            max-width: 600px;
+        }
+        .card {
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+        }
+        h2 {
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .form-group label {
+            font-weight: 500;
+        }
+        .btn {
+            background-color: #007bff;
+            color: white;
+            border-radius: 25px;
+            font-size: 18px;
+            padding: 10px 0;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .alert {
+            margin-top: 15px;
+        }
+        .header-icon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .header-icon svg {
+            width: 50px;
+            height: 50px;
+            fill: #007bff;
+        }
+        .invalid-feedback {
+            display: none;
+            color: red;
+            font-size: 0.875em;
+        }
+        input.is-invalid {
+            border-color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="header-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-heart-pulse" viewBox="0 0 16 16">
+                    <path d="M1 8a7 7 0 1 1 13.41 2.588l.944.333a8 8 0 1 0-15.7 0l.944-.333A7 7 0 0 1 1 8Z"/>
+                    <path d="M8 3.5a.5.5 0 0 0-1 0v1.926L5.698 5.24a.5.5 0 1 0-.396.918L7 6.618v2.764l-.905-.452a.5.5 0 1 0-.395.918L7 11.382v1.068a.5.5 0 0 0 1 0v-1.068l.905-.452a.5.5 0 1 0-.395-.918L8 9.382V6.618l.698-.349a.5.5 0 1 0-.396-.918L8 5.426V3.5Z"/>
+                </svg>
+            </div>
+            <h2>Diabetes Risk Assessment</h2>
+            <form id="diabetes-form">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="pregnancies">Pregnancies</label>
+                        <input type="number" class="form-control" id="pregnancies" placeholder="Number of pregnancies" step="1" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="glucose">Glucose Level (mg/dL)</label>
+                        <input type="number" class="form-control" id="glucose" placeholder="Plasma glucose concentration" step="0.1" required>
+                        <div class="invalid-feedback">Glucose level cannot be 0.</div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="bloodPressure">Blood Pressure (mm Hg)</label>
+                        <input type="number" class="form-control" id="bloodPressure" placeholder="Diastolic blood pressure" step="0.1" required>
+                        <div class="invalid-feedback">Blood pressure cannot be 0.</div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="skinThickness">Skin Thickness (mm)</label>
+                        <input type="number" class="form-control" id="skinThickness" placeholder="Triceps skin fold thickness" step="0.1" required>
+                        <div class="invalid-feedback">Skin thickness cannot be 0.</div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="insulin">Insulin Level (µU/ml)</label>
+                        <input type="number" class="form-control" id="insulin" placeholder="2-Hour serum insulin" step="0.1" required>
+                        <div class="invalid-feedback">Insulin level cannot be 0.</div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="bmi">BMI (kg/m²)</label>
+                        <input type="number" class="form-control" id="bmi" placeholder="Body mass index" step="0.01" required>
+                        <div class="invalid-feedback">BMI cannot be 0.</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="diabetesPedigreeFunction">Diabetes Pedigree Function</label>
+                    <input type="number" class="form-control" id="diabetesPedigreeFunction" placeholder="Diabetes Pedigree Function" step="0.01" required>
+                    <div class="invalid-feedback">Diabetes Pedigree Function cannot be 0.</div>
+                </div>
+                <div class="form-group">
+                    <label for="age">Age (years)</label>
+                    <input type="number" class="form-control" id="age" placeholder="Age in years" step="1" required>
+                </div>
+                <button type="submit" class="btn btn-block">Analyze Risk</button>
+            </form>
+            <div id="result" class="mt-4 text-center"></div>
+            <div class="alert alert-info mt-3" role="alert">
+                <small>This tool provides an initial assessment only and should not be considered as medical advice. Please consult with a healthcare professional for proper medical diagnosis and treatment.</small>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('diabetes-form').addEventListener('input', function(event) {
+            const target = event.target;
+            const fieldsToValidate = ['glucose', 'bloodPressure', 'skinThickness', 'insulin', 'bmi'];
+
+            if (fieldsToValidate.includes(target.id)) {
+                const value = parseFloat(target.value);
+                if (value === 0) {
+                    target.classList.add('is-invalid');
+                    target.nextElementSibling.style.display = 'block';
+                } else {
+                    target.classList.remove('is-invalid');
+                    target.nextElementSibling.style.display = 'none';
+                }
+            }
+        });
+
+        document.getElementById('diabetes-form').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const invalidFields = document.querySelectorAll('.is-invalid');
+            if (invalidFields.length > 0) return;
+
+            const data = {
+                input: [
+                    parseFloat(document.getElementById('pregnancies').value),
+                    parseFloat(document.getElementById('glucose').value),
+                    parseFloat(document.getElementById('bloodPressure').value),
+                    parseFloat(document.getElementById('skinThickness').value),
+                    parseFloat(document.getElementById('insulin').value),
+                    parseFloat(document.getElementById('bmi').value),
+                    parseFloat(document.getElementById('diabetesPedigreeFunction').value),
+                    parseFloat(document.getElementById('age').value)
+                ]
+            };
+
+            try {
+                const response = await fetch('http://127.0.0.1:5000/predict', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+                const prediction = result.prediction === 1 ? "Diabetes Detected" : "No Diabetes Detected";
+
+                document.getElementById('result').innerHTML = `
+                    <div class="alert alert-info">${prediction}</div>
+                `;
+
+                document.getElementById('diabetes-form').reset();
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('result').innerHTML = `
+                    <div class="alert alert-danger">Error making prediction. Please try again.</div>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>
