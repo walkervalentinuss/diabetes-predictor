@@ -99,13 +99,13 @@ Berikut adalah contoh cara menguji API menggunakan **curl**:
 #### Prediksi Tidak Diabetes
 
 ```bash
-curl -X POST http://127.0.0.1:5000/predict -H "Content-Type: application/json" -d "{"input": [2, 88, 70, 32, 85, 24.8, 0.5, 28]}"
+curl -X POST http://127.0.0.1:5000/predict -H "Content-Type: application/json" -d "{\"input\": [2, 88, 70, 32, 85, 24.8, 0.5, 28]}"
 ```
 
 #### Prediksi Diabetes
 
 ```bash
-curl -X POST http://127.0.0.1:5000/predict -H "Content-Type: application/json" -d "{"input": [8, 190, 90, 35, 180, 38.5, 1.2, 60]}"
+curl -X POST http://127.0.0.1:5000/predict -H "Content-Type: application/json" -d "{\"input\": [8, 190, 90, 35, 180, 38.5, 1.2, 60]}"
 ```
 
 ---

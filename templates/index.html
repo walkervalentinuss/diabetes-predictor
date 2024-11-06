@@ -3,185 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diabetes Predictor</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        body {
-            background-color: #f0f4ff;
-            font-family: 'Arial', sans-serif;
-        }
-        .container {
-            margin-top: 50px;
-            max-width: 600px;
-        }
-        .card {
-            padding: 30px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            border-radius: 15px;
-        }
-        h2 {
-            font-weight: bold;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        .form-group label {
-            font-weight: 500;
-        }
-        .btn     {
-            background-color: #007bff;
-            color: white;
-            border-radius: 25px;
-            font-size: 18px;
-            padding: 10px 0;
-        }
-        .btn:hover {
-            background-color: #0056b3;
-        }
-        .alert {
-            margin-top: 15px;
-        }
-        .header-icon {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        .header-icon svg {
-            width: 50px;
-            height: 50px;
-            fill: #007bff;
-        }
-        .invalid-feedback {
-            display: none;
-            color: red;
-            font-size: 0.875em;
-        }
-        input.is-invalid {
-            border-color: red;
-        }
-    </style>
+    <title>Document</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <div class="card">
-            <div class="header-icon">
-                <img src="icons8-glucometer-80.png" alt="glucometer">
-            </div>
-            <h2>Diabetes Predictor</h2>
-            <form id="diabetes-form">
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="pregnancies">Pregnancies</label>
-                        <input type="number" class="form-control" id="pregnancies" placeholder="Number of pregnancies" step="1" required>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="glucose">Glucose Level (mg/dL)</label>
-                        <input type="number" class="form-control" id="glucose" placeholder="Plasma glucose concentration" step="0.1" required>
-                        <div class="invalid-feedback">Glucose level cannot be 0.</div>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="bloodPressure">Blood Pressure (mm Hg)</label>
-                        <input type="number" class="form-control" id="bloodPressure" placeholder="Diastolic blood pressure" step="0.1" required>
-                        <div class="invalid-feedback">Blood pressure cannot be 0.</div>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="skinThickness">Skin Thickness (mm)</label>
-                        <input type="number" class="form-control" id="skinThickness" placeholder="Triceps skin fold thickness" step="0.1" required>
-                        <div class="invalid-feedback">Skin thickness cannot be 0.</div>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="insulin">Insulin Level (µU/ml)</label>
-                        <input type="number" class="form-control" id="insulin" placeholder="2-Hour serum insulin" step="0.1" required>
-                        <div class="invalid-feedback">Insulin level cannot be 0.</div>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="bmi">BMI (kg/m²)</label>
-                        <input type="number" class="form-control" id="bmi" placeholder="Body mass index" step="0.01" required>
-                        <div class="invalid-feedback">BMI cannot be 0.</div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="diabetesPedigreeFunction">Diabetes Pedigree Function</label>
-                    <input type="number" class="form-control" id="diabetesPedigreeFunction" placeholder="Diabetes Pedigree Function" step="0.01" required>
-                    <div class="invalid-feedback">Diabetes Pedigree Function cannot be 0.</div>
-                </div>
-                <div class="form-group">
-                    <label for="age">Age (years)</label>
-                    <input type="number" class="form-control" id="age" placeholder="Age in years" step="1" required>
-                </div>
-                <button type="submit" class="btn btn-block">Predict</button>
-            </form>
-            <div id="result" class="mt-4 text-center"></div>
-            <div class="alert alert-info mt-3" role="alert">
-                <small>This tool provides an initial assessment only and should not be considered as medical advice. Please consult with a healthcare professional for proper medical diagnosis and treatment!!</small>
-            </div>
+    <div class="container contact-form">
+        <div class="contact-image">
+            <img src="https://image.ibb.co/kUagtU/rocket_contact.png" alt="rocket_contact"/>
         </div>
-    </div>
-
-    <script>
-        document.getElementById('diabetes-form').addEventListener('input', function(event) {
-            const target = event.target;
-            const fieldsToValidate = ['glucose', 'bloodPressure', 'skinThickness', 'insulin', 'bmi'];
-
-            if (fieldsToValidate.includes(target.id)) {
-                const value = parseFloat(target.value);
-                if (value === 0) {
-                    target.classList.add('is-invalid');
-                    target.nextElementSibling.style.display = 'block';
-                } else {
-                    target.classList.remove('is-invalid');
-                    target.nextElementSibling.style.display = 'none';
-                }
-            }
-        });
-
-        document.getElementById('diabetes-form').addEventListener('submit', async function(event) {
-            event.preventDefault();
-
-            const invalidFields = document.querySelectorAll('.is-invalid');
-            if (invalidFields.length > 0) return;
-
-            const data = {
-                input: [
-                    parseFloat(document.getElementById('pregnancies').value),
-                    parseFloat(document.getElementById('glucose').value),
-                    parseFloat(document.getElementById('bloodPressure').value),
-                    parseFloat(document.getElementById('skinThickness').value),
-                    parseFloat(document.getElementById('insulin').value),
-                    parseFloat(document.getElementById('bmi').value),
-                    parseFloat(document.getElementById('diabetesPedigreeFunction').value),
-                    parseFloat(document.getElementById('age').value)
-                ]
-            };
-
-            try {
-                const response = await fetch('http://127.0.0.1:5000/predict', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(data)
-                });
-
-                const result = await response.json();
-                const prediction = result.prediction === 1 ? "Diabetes Detected" : "No Diabetes Detected";
-
-                document.getElementById('result').innerHTML = `
-                    <div class="alert alert-info">${prediction}</div>
-                `;
-
-                document.getElementById('diabetes-form').reset();
-            } catch (error) {
-                console.error('Error:', error);
-                document.getElementById('result').innerHTML = `
-                    <div class="alert alert-danger">Error making prediction. Please try again.</div>
-                `;
-            }
-        });
-    </script>
+        <form method="post">
+            <h3>Drop Us a Message</h3>
+           <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="number" name="pregnancies" class="form-control" placeholder="Pregnancies" value="" />
+                    </div>
+                    <div class="form-group">
+                        <input type="number" name="glucose" class="form-control" placeholder="Glucose" value="" />
+                    </div>
+                    <div class="form-group">
+                        <input type="number" name="bloodPressure" class="form-control" placeholder="Blood Pressure" value="" />
+                    </div>
+                    <div class="form-group">
+                        <input type="number" name="skinThickness" class="form-control" placeholder="Skin Thickness" value="" />
+                    </div>
+                    <div class="form-group">
+                        <input type="number" name="insulin" class="form-control" placeholder="Insulin" value="" />
+                    </div>
+                    <div class="form-group">
+                        <input type="number" name="BMI" class="form-control" placeholder="BMI" value="" />
+                    </div>
+                    <div class="form-group">
+                        <input type="number" name="diabetesPredigreeFunction" class="form-control" placeholder="Diabetes Predigree Function" value="" />
+                    </div>
+                    <div class="form-group">
+                        <input type="number" name="age" class="form-control" placeholder="Age" value="" />
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-block btn-large btnContact">Predict!</button>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h4>Hasil Prediksi</h4>
+                </div>
+            </div>
+        </form>
+</div>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </body>
 </html>
