@@ -11,7 +11,7 @@
     <div class="container">
         <div class="card">
             <div class="header-icon">
-                <img src="icons8-glucometer-80.png" alt="logo">
+                <img src="../static/icons8-glucometer-80.png" alt="logo">
             </div>
             <h2>Diabetes Risk Assessment</h2>
             <form id="diabetes-form">
@@ -58,6 +58,7 @@
                 <div class="form-group">
                     <label for="age">Age (years)</label>
                     <input type="number" class="form-control" id="age" placeholder="Age in years" step="1" required>
+                    <div class="invalid-feedback">Age cannot be 0.</div>
                 </div>
                 <button type="submit" class="btn btn-block">Analyze Risk</button>
             </form>
@@ -67,7 +68,7 @@
             </div>
         </div>
     </div>
-    <script src="script.js"></script>
+    <script src="../static/script.js"></script>
     <!-- <script>
         document.getElementById('diabetes-form').addEventListener('input', function(event) {
             const target = event.target;

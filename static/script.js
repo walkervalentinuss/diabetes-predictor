@@ -1,6 +1,6 @@
 document.getElementById('diabetes-form').addEventListener('input', function(event) {
     const target = event.target;
-    const fieldsToValidate = ['glucose', 'bloodPressure', 'skinThickness', 'insulin', 'bmi'];
+    const fieldsToValidate = ['glucose', 'bloodPressure', 'skinThickness', 'insulin', 'bmi', 'age'];
 
     if (fieldsToValidate.includes(target.id)) {
         const value = parseFloat(target.value);
